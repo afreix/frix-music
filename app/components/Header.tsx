@@ -74,7 +74,7 @@ export default function Header() {
             aria-label="TikTok"
           >
             <Image
-              src="/icons/tiktok.png"
+              src="/icons/TikTok.png"
               alt="TikTok"
               width={32}
               height={32}
