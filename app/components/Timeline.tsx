@@ -1,15 +1,21 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion"
+import { useState, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useInView,
+} from "framer-motion";
 
 const timelineEvents = [
   {
-    year: 2018,
+    year: 2017,
     title: "Musical Beginnings",
     description: "Released first EP and performed at local venues.",
     details:
-      "Started my musical journey with the release of 'First Light' EP, which gained attention in the underground electronic scene. Performed at 15 local venues across the city.",
+      "Started Musical journey with the release of 'First Light' EP, which gained attention in the underground electronic scene. Performed at 15 local venues across the city.",
   },
   {
     year: 2019,
@@ -28,7 +34,8 @@ const timelineEvents = [
   {
     year: 2021,
     title: "Major Label Signing",
-    description: "Signed with Harmonic Records and released breakthrough single.",
+    description:
+      "Signed with Harmonic Records and released breakthrough single.",
     details:
       "Signing with Harmonic Records opened new opportunities for wider distribution. 'Neon Lights' single reached top 40 charts and accumulated over 1 million streams across platforms.",
   },
@@ -42,11 +49,12 @@ const timelineEvents = [
   {
     year: 2023,
     title: "Event Production Launch",
-    description: "Founded 'Resonance' event series blending music and visual arts.",
+    description:
+      "Founded 'Resonance' event series blending music and visual arts.",
     details:
       "Launched the 'Resonance' event series, curating immersive experiences that combine electronic music with visual installations. The inaugural event sold out within 48 hours and featured collaborations with 12 visual artists.",
   },
-]
+];
 
 const FlowerIcon = ({ progress }: { progress: number }) => (
   <svg
@@ -67,21 +75,21 @@ const FlowerIcon = ({ progress }: { progress: number }) => (
       strokeWidth="2"
     />
   </svg>
-)
+);
 
 export default function Timeline() {
-  const [expandedEvent, setExpandedEvent] = useState<number | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [expandedEvent, setExpandedEvent] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
-  })
+  });
 
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001,
-  })
+  });
 
   return (
     <section ref={containerRef} className="py-20 bg-background overflow-hidden">
@@ -92,8 +100,12 @@ export default function Timeline() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">My Journey</h2>
-          <p className="mt-4 text-lg text-muted-foreground">The evolution of my musical career</p>
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+            My Journey
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            The evolution of Musical career
+          </p>
         </motion.div>
 
         <div className="relative">
@@ -108,7 +120,9 @@ export default function Timeline() {
             className="sticky top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-primary"
             style={{ y: useTransform(scrollYProgress, [0, 1], [0, 100]) }}
           >
-            <FlowerIcon progress={useTransform(scrollYProgress, [0, 1], [0.5, 1]) as any} />
+            <FlowerIcon
+              progress={useTransform(scrollYProgress, [0, 1], [0.5, 1]) as any}
+            />
           </motion.div>
 
           {timelineEvents.map((event, index) => (
@@ -117,13 +131,15 @@ export default function Timeline() {
               event={event}
               index={index}
               isExpanded={expandedEvent === index}
-              onToggle={() => setExpandedEvent(expandedEvent === index ? null : index)}
+              onToggle={() =>
+                setExpandedEvent(expandedEvent === index ? null : index)
+              }
             />
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function TimelineEvent({
@@ -132,18 +148,20 @@ function TimelineEvent({
   isExpanded,
   onToggle,
 }: {
-  event: (typeof timelineEvents)[0]
-  index: number
-  isExpanded: boolean
-  onToggle: () => void
+  event: (typeof timelineEvents)[0];
+  index: number;
+  isExpanded: boolean;
+  onToggle: () => void;
 }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
 
   return (
     <motion.div
       ref={ref}
-      className={`mb-8 flex justify-between items-center w-full ${index % 2 === 0 ? "flex-row-reverse" : ""}`}
+      className={`mb-8 flex justify-between items-center w-full ${
+        index % 2 === 0 ? "flex-row-reverse" : ""
+      }`}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
@@ -166,14 +184,19 @@ function TimelineEvent({
           <p className="text-muted-foreground">{event.description}</p>
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
+            animate={{
+              height: isExpanded ? "auto" : 0,
+              opacity: isExpanded ? 1 : 0,
+            }}
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="mt-2 text-sm text-muted-foreground">{event.details}</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {event.details}
+            </p>
           </motion.div>
         </div>
       </motion.div>
     </motion.div>
-  )
+  );
 }

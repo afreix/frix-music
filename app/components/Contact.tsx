@@ -1,15 +1,22 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { toast } from "@/components/ui/use-toast"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { toast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -21,10 +28,10 @@ const formSchema = z.object({
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
-})
+});
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,20 +40,20 @@ export default function Contact() {
       email: "",
       message: "",
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
-      console.log(values)
-      setIsSubmitting(false)
+      console.log(values);
+      setIsSubmitting(false);
       toast({
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
-      })
-      form.reset()
-    }, 2000)
+      });
+      form.reset();
+    }, 2000);
   }
 
   return (
@@ -60,7 +67,7 @@ export default function Contact() {
         >
           Get in Touch
         </motion.h2>
-        <motion.div
+        {/* <motion.div
           className="bg-white p-8 rounded-2xl shadow-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -112,8 +119,8 @@ export default function Contact() {
               </Button>
             </form>
           </Form>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
-  )
+  );
 }

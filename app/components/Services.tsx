@@ -1,15 +1,9 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Music, Mic, Calendar, Users } from "lucide-react"
+import { motion } from "framer-motion";
+import { Mic, Calendar, Users } from "lucide-react";
 
 const services = [
-  {
-    icon: <Music className="w-12 h-12 mb-4 text-blue-500" />,
-    title: "Music Production",
-    description:
-      "Full-service music production from concept to final master, specializing in electronic and hybrid genres.",
-  },
   {
     icon: <Mic className="w-12 h-12 mb-4 text-green-500" />,
     title: "Live Performances",
@@ -19,14 +13,16 @@ const services = [
   {
     icon: <Calendar className="w-12 h-12 mb-4 text-yellow-500" />,
     title: "Event Production",
-    description: "Curating immersive experiences that combine music, visual arts, and interactive elements.",
+    description:
+      "Curating immersive experiences that combine music, visual arts, and interactive elements.",
   },
   {
     icon: <Users className="w-12 h-12 mb-4 text-purple-500" />,
     title: "Collaborations",
-    description: "Creative partnerships with artists, brands, and organizations looking to incorporate original music.",
+    description:
+      "Creative partnerships with artists, brands, and organizations looking to incorporate original music.",
   },
-]
+];
 
 export default function Services() {
   return (
@@ -50,12 +46,14 @@ export default function Services() {
               transition={{ duration: 0.8, delay: index * 0.1 }}
             >
               {service.icon}
-              <h3 className="text-xl font-bold mb-2 text-white">{service.title}</h3>
+              <h3 className="text-xl font-bold mb-2 text-white">
+                {service.title}
+              </h3>
               <p className="text-gray-300">{service.description}</p>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,31 +1,19 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
     quote:
-      "Alex's performance was the highlight of our festival. The energy and connection with the audience was extraordinary.",
-    author: "Sarah Johnson",
-    position: "Festival Director, Soundwave",
-    image: "/placeholder.svg?height=100&width=100",
+      "Frix it was an honor to be there I love how our night turned out so thank you again for the performance! ",
+    author: "Fan",
   },
   {
     quote:
-      "Working with Alex on our collaboration track was incredible. Their production skills and creative vision took the project to another level.",
-    author: "DJ Pulse",
-    position: "Recording Artist",
-    image: "/placeholder.svg?height=100&width=100",
+      "Hey!! Omg thank you for having us! Please let us know when you perform again. We love live music and you have an incredible gift!",
+    author: "Fan",
   },
-  {
-    quote:
-      "The Resonance event series has redefined what an immersive music experience can be. Alex's attention to detail in both sound and visuals is unmatched.",
-    author: "Michael Chen",
-    position: "Music Critic, Beat Magazine",
-    image: "/placeholder.svg?height=100&width=100",
-  },
-]
+];
 
 export default function Testimonials() {
   return (
@@ -42,7 +30,7 @@ export default function Testimonials() {
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
-              key={testimonial.author}
+              key={index}
               className="bg-gray-800 p-6 rounded-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -50,22 +38,13 @@ export default function Testimonials() {
             >
               <p className="text-gray-300 mb-4">"{testimonial.quote}"</p>
               <div className="flex items-center">
-                <Image
-                  src={testimonial.image || "/placeholder.svg"}
-                  alt={testimonial.author}
-                  width={50}
-                  height={50}
-                  className="rounded-full mr-4"
-                />
-                <div>
-                  <p className="font-bold text-white">{testimonial.author}</p>
-                  <p className="text-gray-400">{testimonial.position}</p>
-                </div>
+                <p className="font-bold text-white">- {testimonial.author}</p>
+                {/* <p className="text-gray-400">{testimonial.position}</p> */}
               </div>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

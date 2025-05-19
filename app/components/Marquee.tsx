@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 export default function Marquee() {
   return (
@@ -9,7 +9,11 @@ export default function Marquee() {
       <motion.div
         className="flex whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
-        transition={{ repeat: Number.POSITIVE_INFINITY, ease: "linear", duration: 20 }}
+        transition={{
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+          duration: 20,
+        }}
       >
         {[...Array(4)].map((_, index) => (
           <div key={index} className="flex items-center mx-4">
@@ -19,11 +23,11 @@ export default function Marquee() {
                 WebkitTextStroke: "1px rgb(156 163 175)", // tailwind gray-400
               }}
             >
-              ALEX RIVERA
+              FRIX
             </span>
           </div>
         ))}
       </motion.div>
     </div>
-  )
+  );
 }

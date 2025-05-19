@@ -1,25 +1,34 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   inquiryType: z.string().min(1, { message: "Please select an inquiry type." }),
   eventDate: z.string().optional(),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
-})
+  message: z
+    .string()
+    .min(10, { message: "Message must be at least 10 characters." }),
+});
 
 export default function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -30,17 +39,17 @@ export default function ContactForm() {
       eventDate: "",
       message: "",
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
-      console.log(values)
-      setIsSubmitting(false)
-      form.reset()
-      alert("Thank you for your message. We'll get back to you soon!")
-    }, 2000)
+      console.log(values);
+      setIsSubmitting(false);
+      form.reset();
+      alert("Thank you for your message. We'll get back to you soon!");
+    }, 2000);
   }
 
   return (
@@ -52,14 +61,18 @@ export default function ContactForm() {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl mb-4" id="contact">
-            Get in Touch
+          <h2
+            className="text-3xl font-bold text-foreground sm:text-4xl mb-4"
+            id="contact"
+          >
+            contact@frixmusic.com
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Booking inquiries, collaboration requests, or just want to say hello? Fill out the form below.
-          </p>
+          {/* <p className="text-lg text-muted-foreground">
+            Booking inquiries, collaboration requests, or just want to say
+            hello? Fill out the form below.
+          </p> */}
         </motion.div>
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -149,8 +162,8 @@ export default function ContactForm() {
               </Button>
             </form>
           </Form>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
-  )
+  );
 }

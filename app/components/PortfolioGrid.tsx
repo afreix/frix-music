@@ -1,83 +1,137 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const projects = [
   {
+    id: 3,
+    title: "Redbone (cover)",
+    description: "Dynamic performances with full band arrangements",
+    categories: ["Band"],
+    videoUrl: "https://www.youtube.com/shorts/MrCfha8S-PU",
+    videoId: "MrCfha8S-PU",
+  },
+  {
     id: 1,
-    title: "Midnight Echoes",
-    description: "Latest album featuring 12 tracks of electronic fusion",
-    imageUrl: "/placeholder.svg?height=600&width=800",
-    category: "Albums",
+    title: "Wicked Games (cover)",
+    description: "Intimate performances showcasing raw musical talent",
+    categories: ["Acoustic", "Live"],
+    videoUrl: "https://www.youtube.com/shorts/UwyLoTp9g_A",
+    videoId: "UwyLoTp9g_A",
   },
   {
     id: 2,
-    title: "Urban Dreams",
-    description: "EP collaboration with renowned producer Maya Frost",
-    imageUrl: "/placeholder.svg?height=800&width=600",
-    category: "EPs",
+    title: "Wake Me Up (cover)",
+    description: "Captivating live shows and concert highlights",
+    categories: ["Acoustic", "Live"],
+    videoUrl: "https://www.youtube.com/shorts/4phy-T_Iacg",
+    videoId: "4phy-T_Iacg",
   },
-  {
-    id: 3,
-    title: "Neon Lights",
-    description: "Chart-topping single with over 1 million streams",
-    imageUrl: "/placeholder.svg?height=600&width=800",
-    category: "Singles",
-  },
-  {
-    id: 4,
-    title: "Summer Festival Tour",
-    description: "Highlights from performances across major music festivals",
-    imageUrl: "/placeholder.svg?height=800&width=600",
-    category: "Live",
-  },
-  {
-    id: 5,
-    title: "Remix Collection",
-    description: "Reimagined tracks from leading artists in the industry",
-    imageUrl: "/placeholder.svg?height=600&width=800",
-    category: "Remixes",
-  },
-  {
-    id: 6,
-    title: "Acoustic Sessions",
-    description: "Stripped-down versions of fan favorites",
-    imageUrl: "/placeholder.svg?height=800&width=600",
-    category: "Sessions",
-  },
-]
 
-const categories = ["All", ...new Set(projects.map((project) => project.category))]
+  // {
+  //   id: 4,
+  //   title: "Bedroom Recording",
+  //   description: "Intimate recordings from the comfort of home",
+  //   thumbnailUrl: "/photos/Andrew_singing_good.jpg",
+  //   categories: ["Bedroom"],
+  //   videoUrl: "https://www.youtube.com/shorts/UwyLoTp9g_A",
+  //   videoId: "UwyLoTp9g_A"
+  // },
+];
+
+const categories = ["Acoustic", "Band"];
 
 export default function PortfolioGrid() {
-  const [filter, setFilter] = useState("All")
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const videoRef = useRef<HTMLIFrameElement>(null);
 
-  const filteredProjects = filter === "All" ? projects : projects.filter((project) => project.category === filter)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && videoRef.current) {
+            // Add autoplay parameter to the video URL
+            const currentSrc = videoRef.current.src;
+            if (!currentSrc.includes("autoplay=1")) {
+              videoRef.current.src = `${currentSrc}${
+                currentSrc.includes("?") ? "&" : "?"
+              }autoplay=1&mute=1`;
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the video is visible
+      }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
+  const toggleFilter = (category: string) => {
+    setSelectedFilter((prev) => (prev === category ? null : category));
+  };
+
+  const filteredProjects =
+    selectedFilter === null
+      ? projects
+      : projects.filter((project) =>
+          project.categories.includes(selectedFilter)
+        );
 
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl" id="music">
-            My Music
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">Explore my discography and musical journey.</p>
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <motion.div
+            className="relative aspect-square rounded-2xl overflow-hidden shadow-xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 opacity-20"></div>
+            <img
+              src="/photos/Andrew_singing_good.jpg"
+              alt="Andrew performing"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
 
-        <div className="flex justify-center space-x-4 mb-8">
+          <motion.div
+            className="text-center lg:text-left"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2
+              className="text-3xl font-bold text-foreground sm:text-4xl"
+              id="music"
+            >
+              Music
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Explore my musical journey through various styles and settings.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => setFilter(category)}
+              onClick={() => toggleFilter(category)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                filter === category
+                selectedFilter === category
                   ? "bg-primary text-primary-foreground"
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
               }`}
@@ -87,7 +141,10 @@ export default function PortfolioGrid() {
           ))}
         </div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           <AnimatePresence>
             {filteredProjects.map((project) => (
               <motion.div
@@ -99,36 +156,44 @@ export default function PortfolioGrid() {
                 transition={{ duration: 0.5 }}
                 className="bg-background rounded-3xl shadow-lg overflow-hidden hover-lift transition-all duration-300 ease-in-out border-2 border-transparent hover:border-primary/10"
               >
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={project.imageUrl || "/placeholder.svg"}
+                <div className="relative h-64 overflow-hidden group">
+                  <img
+                    src={`https://img.youtube.com/vi/${project.videoId}/maxresdefault.jpg`}
                     alt={project.title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="transition-transform duration-300 ease-in-out group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                   />
-                  <motion.div
-                    className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300"
-                    whileHover={{ opacity: 1 }}
-                  >
-                    <p className="text-white text-center px-4">{project.description}</p>
-                  </motion.div>
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                    <a
+                      href={project.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform duration-300"
+                    >
+                      <svg
+                        className="w-8 h-8 text-black"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
                 <div className="p-6">
-                  <div className="text-sm font-medium text-primary mb-1">{project.category}</div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">{project.title}</h3>
-                  <a href="#" className="text-primary hover:underline inline-flex items-center">
-                    Listen Now
-                    <svg
-                      className="w-4 h-4 ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </a>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {project.categories.map((category) => (
+                      <span
+                        key={category}
+                        className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full"
+                      >
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    {project.title}
+                  </h3>
                 </div>
               </motion.div>
             ))}
@@ -136,5 +201,5 @@ export default function PortfolioGrid() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

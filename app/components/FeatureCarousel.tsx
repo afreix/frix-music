@@ -1,61 +1,61 @@
-"use client"
+"use client";
 
-import { useRef, useEffect, useState } from "react"
-import { motion, useAnimation, useMotionValue } from "framer-motion"
+import { useRef, useEffect, useState } from "react";
+import { motion, useAnimation, useMotionValue } from "framer-motion";
 
 const features = [
   {
-    title: "Music Production",
-    description: "Creating immersive soundscapes and innovative beats.",
+    title: "Intimate Acoustic Sets",
+    description:
+      "A diverse range of styles and genres, from classics like Rocket Man or Wicked Games to bossa nova, RnB, and latin.",
     icon: "🎵",
   },
   {
-    title: "Live Performance",
+    title: "Live Band Performances",
     description: "Energetic and captivating shows that connect with audiences.",
     icon: "🎤",
   },
   {
     title: "Event Production",
-    description: "Curating unique experiences that blend music, art, and culture.",
+    description:
+      "Curating unique experiences that blend music, art, and culture.",
     icon: "🎪",
   },
-  {
-    title: "Collaborations",
-    description: "Working with diverse artists to create boundary-pushing music.",
-    icon: "🤝",
-  },
-  {
-    title: "Sound Design",
-    description: "Crafting distinctive audio elements for various media projects.",
-    icon: "🎧",
-  },
-]
+];
 
 export default function FeatureCarousel() {
-  const [width, setWidth] = useState(0)
-  const carousel = useRef<HTMLDivElement>(null)
-  const x = useMotionValue(0)
-  const controls = useAnimation()
+  const [width, setWidth] = useState(0);
+  const carousel = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const controls = useAnimation();
 
   useEffect(() => {
     if (carousel.current) {
-      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth)
+      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
     }
-  }, [])
+  }, []);
 
   const handleDragEnd = () => {
-    const currentX = x.get()
+    const currentX = x.get();
     if (currentX > 0) {
-      controls.start({ x: 0, transition: { type: "spring", stiffness: 300, damping: 30 } })
+      controls.start({
+        x: 0,
+        transition: { type: "spring", stiffness: 300, damping: 30 },
+      });
     } else if (currentX < -width) {
-      controls.start({ x: -width, transition: { type: "spring", stiffness: 300, damping: 30 } })
+      controls.start({
+        x: -width,
+        transition: { type: "spring", stiffness: 300, damping: 30 },
+      });
     }
-  }
+  };
 
   return (
     <div className="py-20 bg-gradient-to-b from-background to-secondary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center mb-12 text-foreground">What I Do</h2>
+        <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
+          What I Do
+        </h2>
         <motion.div ref={carousel} className="cursor-grab overflow-hidden">
           <motion.div
             drag="x"
@@ -73,18 +73,10 @@ export default function FeatureCarousel() {
               >
                 <div>
                   <div className="text-4xl mb-4">{feature.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2 text-foreground">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground">
+                    {feature.title}
+                  </h3>
                   <p className="text-muted-foreground">{feature.description}</p>
-                </div>
-                <div className="mt-4">
-                  <a
-                    href="https://www.flowersandsaints.com.au"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    Learn more →
-                  </a>
                 </div>
               </motion.div>
             ))}
@@ -92,5 +84,5 @@ export default function FeatureCarousel() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
