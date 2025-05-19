@@ -47,7 +47,7 @@ export default function About() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg transform rotate-3"></div>
             <div className="absolute inset-0 bg-gray-800 rounded-lg transform -rotate-3 flex items-center justify-center">
               <img
-                src="/photos/IMG_0896.jpg"
+                src="/photos/about_me.jpg"
                 alt="Frix in studio"
                 className="rounded-lg h-80 w-80 object-cover"
               />
