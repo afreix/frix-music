@@ -114,13 +114,14 @@ export default function PortfolioGrid() {
             transition={{ duration: 0.8 }}
           >
             <h2
-              className="text-3xl font-bold text-foreground sm:text-4xl"
+              className="text-3xl font-bold text-foreground sm:text-4xl text-gradient"
               id="music"
             >
               Music
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Explore my musical journey through various styles and settings.
+              I'm deeply grateful for the opportunity to share my music with
+              others and to have met so many wonderful people along the way
             </p>
           </motion.div>
         </div>
