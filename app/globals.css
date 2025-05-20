@@ -4,48 +4,48 @@
 
 @layer base {
   :root {
-    --background: 210 70% 4.3%; /* #0B0C10 Deep Black-Navy */
+    --background: 0 0% 4.3%; /* #0B0C10 Deep Black */
     --foreground: 0 0% 98.8%; /* #FFFFFF White */
-    --card: 210 70% 4.3%;
+    --card: 0 0% 4.3%;
     --card-foreground: 0 0% 98.8%;
-    --popover: 210 70% 4.3%;
+    --popover: 0 0% 4.3%;
     --popover-foreground: 0 0% 98.8%;
     --primary: 0 0% 79.2%; /* #C5C6C7 Muted Silver */
-    --primary-foreground: 210 70% 4.3%;
-    --secondary: 160 30% 41.2%; /* #45A29E Teal Depth */
+    --primary-foreground: 0 0% 4.3%;
+    --secondary: 0 50% 41.2%; /* #A24545 Deep Red */
     --secondary-foreground: 0 0% 98.8%;
-    --muted: 160 30% 41.2%;
+    --muted: 0 50% 41.2%;
     --muted-foreground: 0 0% 98.8%;
-    --accent: 180 100% 50.2%; /* #66FCF1 Cyan Glow */
-    --accent-foreground: 210 70% 4.3%;
+    --accent: 0 100% 50.2%; /* #FF3333 Bright Red */
+    --accent-foreground: 0 0% 4.3%;
     --destructive: 0 100% 50%;
     --destructive-foreground: 0 0% 98.8%;
-    --border: 160 30% 41.2%;
-    --input: 160 30% 41.2%;
-    --ring: 180 100% 50.2%;
+    --border: 0 50% 41.2%;
+    --input: 0 50% 41.2%;
+    --ring: 0 100% 50.2%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 210 70% 4.3%; /* #0B0C10 Deep Black-Navy */
+    --background: 0 0% 4.3%; /* #0B0C10 Deep Black */
     --foreground: 0 0% 98.8%;
-    --card: 210 70% 4.3%;
+    --card: 0 0% 4.3%;
     --card-foreground: 0 0% 98.8%;
-    --popover: 210 70% 4.3%;
+    --popover: 0 0% 4.3%;
     --popover-foreground: 0 0% 98.8%;
     --primary: 0 0% 79.2%;
-    --primary-foreground: 210 70% 4.3%;
-    --secondary: 160 30% 41.2%;
+    --primary-foreground: 0 0% 4.3%;
+    --secondary: 0 50% 41.2%;
     --secondary-foreground: 0 0% 98.8%;
-    --muted: 160 30% 41.2%;
+    --muted: 0 50% 41.2%;
     --muted-foreground: 0 0% 98.8%;
-    --accent: 180 100% 50.2%;
-    --accent-foreground: 210 70% 4.3%;
+    --accent: 0 100% 50.2%;
+    --accent-foreground: 0 0% 4.3%;
     --destructive: 0 100% 50%;
     --destructive-foreground: 0 0% 98.8%;
-    --border: 160 30% 41.2%;
-    --input: 160 30% 41.2%;
-    --ring: 180 100% 50.2%;
+    --border: 0 50% 41.2%;
+    --input: 0 50% 41.2%;
+    --ring: 0 100% 50.2%;
   }
 }
 
@@ -68,7 +68,7 @@
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-red-600;
 }
 
 .hover-lift {
