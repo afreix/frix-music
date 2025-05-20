@@ -232,8 +232,7 @@ export default function Hero() {
                 <Calendar className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
                 <span className="relative">
                   <span className="text-gradient">
-                    Next Show:
-                    {formattedDate} @ {nextShow.venue}
+                    Next Show: {formattedDate} @ {nextShow.venue}
                   </span>
                 </span>
               </Link>
